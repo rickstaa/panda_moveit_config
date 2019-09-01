@@ -5,12 +5,22 @@
 
   <!-- The request adapters (plugins) used when planning with OMPL. 
        ORDER MATTERS -->
-  <arg name="planning_adapters" value="
+  <!--TODO: Uncomment when ResolveConstraintFrames planner is released to binary-->
+  <!-- <arg name="planning_adapters" value="
        default_planner_request_adapters/FixWorkspaceBounds
        default_planner_request_adapters/FixStartStateBounds
        default_planner_request_adapters/FixStartStateCollision
        default_planner_request_adapters/FixStartStatePathConstraints
        default_planner_request_adapters/ResolveConstraintFrames
+       default_planner_request_adapters/AddTimeParameterization"
+       /> -->
+
+  <!-- TODO: Remove when released-->
+  <arg name="planning_adapters" value="
+       default_planner_request_adapters/FixWorkspaceBounds
+       default_planner_request_adapters/FixStartStateBounds
+       default_planner_request_adapters/FixStartStateCollision
+       default_planner_request_adapters/FixStartStatePathConstraints
        default_planner_request_adapters/AddTimeParameterization"
        />
   <arg name="start_state_max_bounds_error" value="0.1" />
