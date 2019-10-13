@@ -9,6 +9,10 @@
   <arg name="debug" default="false" />
   <arg name="pipeline" default="ompl" />
 
+  <!-- Allow user to specify if they want an extra gripper center frame -->
+  <arg name="gripper_center" default="false"/>
+  <arg name="gripper_center_xyz" default="0.0 0.0 0.10"/>
+
   <!--
   By default, hide joint_state_publisher's GUI
 
@@ -23,6 +27,8 @@
   <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
   <include file="$(find panda_moveit_config)/launch/planning_context.launch">
     <arg name="load_robot_description" value="true"/>
+    <arg name="gripper_center" default="$(arg gripper_center)"/>
+    <arg name="gripper_center_xyz" default="$(arg gripper_center_xyz)"/>
   </include>
 
   <!-- If needed, broadcast static tf for robot root -->
@@ -45,6 +51,8 @@
     <arg name="info" value="true"/>
     <arg name="debug" value="$(arg debug)"/>
     <arg name="pipeline" value="$(arg pipeline)"  />
+    <arg name="gripper_center" default="$(arg gripper_center)"/>
+    <arg name="gripper_center_xyz" default="$(arg gripper_center_xyz)"/>
   </include>
 
   <!-- Run Rviz -->
