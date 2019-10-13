@@ -2,8 +2,14 @@
 
   <arg name="load_gripper" default="true" />
 
+  <!-- Allow user to specify if they want an extra gripper center frame -->
+  <arg name="gripper_center" default="false"/>
+  <arg name="gripper_center_xyz" default="0.0 0.0 0.10"/>
+
   <include file="$(find panda_moveit_config)/launch/planning_context.launch">
     <arg name="load_gripper" value="$(arg load_gripper)" />
+    <arg name="gripper_center" default="$(arg gripper_center)"/>
+    <arg name="gripper_center_xyz" default="$(arg gripper_center_xyz)"/>
   </include>
 
   <arg name="pipeline" default="ompl" />
