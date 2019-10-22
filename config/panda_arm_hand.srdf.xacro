@@ -42,8 +42,9 @@
     <joint name="panda_joint7" value="0.785" />
   </group_state>
   <group_state name="open" group="hand">
-    <joint name="panda_finger_joint1" value="0.04" />
-    <joint name="panda_finger_joint2" value="0.04" />
+    <!--Has to be set a little less than the maximum otherwise moveit won't plan -->
+    <joint name="panda_finger_joint1" value="0.035" />
+    <joint name="panda_finger_joint2" value="0.035" />
   </group_state>
   <group_state name="close" group="hand">
     <joint name="panda_finger_joint1" value="0" />
