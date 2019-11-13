@@ -2,12 +2,15 @@
 
   <!-- This file makes it easy to include the settings for sensor managers -->
 
+  <!-- Allow user to specifty if they want to enable the moveit perception module -->
+  <arg name="moveit_perception_frame" default="kinect2_ir_optical_frame"/>
+
   <!-- Param for kinect config -->
-  <rosparam command="load" file="$(find panda_moveit_config)/config/sensors_kinect_pointcloud.yaml" />
+  <rosparam command="load" file="$(find panda_moveit_config)/config/sensors_kinect_depthmap.yaml" />
 
   <!-- Params for the octomap monitor -->
   <!--  <param name="octomap_frame" type="string" value="some frame in which the robot moves" /> -->
-  <param name="octomap_frame" type="string" value="camera_rgb_optical_frame" />
+  <param name="octomap_frame" type="string" value="$(arg moveit_perception_frame)" />
   <param name="octomap_resolution" type="double" value="0.05" />
   <param name="max_range" type="double" value="5.0" />
 
