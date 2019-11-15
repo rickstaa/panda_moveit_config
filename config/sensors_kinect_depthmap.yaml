@@ -1,11 +1,11 @@
 sensors:
   - sensor_plugin: occupancy_map_monitor/DepthImageOctomapUpdater
-    image_topic: /kinect2/qhd/image_depth_rect_32FC1
+    image_topic: /kinect2/hd/image_depth_rect_32FC1
     queue_size: 5
     near_clipping_plane_distance: 0.3
     far_clipping_plane_distance: 5.0
-    shadow_threshold: 0.2
-    padding_scale: 4.0
-    padding_offset: 0.03
-    max_update_rate: 1.0
+    shadow_threshold: 0.1 # Specifies how fast something is seen as a shadow
+    padding_scale: 0.5
+    padding_offset: 0.01  # Kinect depth resolution (1.5mm at 50cm and 5cm at 5 m)
+    max_update_rate: 1
     filtered_cloud_topic: filtered_cloud

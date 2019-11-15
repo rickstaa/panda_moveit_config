@@ -5,15 +5,19 @@
   <!-- Allow user to specifty if they want to enable the moveit perception module -->
   <arg name="moveit_perception" default="false" />
   <arg name="moveit_perception_frame" default="kinect2_ir_optical_frame"/>
+  <arg name="octomap_type" default="depthmap"/>
+  <arg name="octomap_resolution" default="0.01"/>
 
   <!-- Allow user to specify if they want an extra gripper center frame -->
   <arg name="gripper_center" default="false"/>
   <arg name="gripper_center_xyz" default="0.0 0.0 0.10"/>
+  <arg name="gripper_center_rpy" default="0.0 0.0 0.0"/>
 
   <include file="$(find panda_moveit_config)/launch/planning_context.launch">
     <arg name="load_gripper" value="$(arg load_gripper)" />
     <arg name="gripper_center" default="$(arg gripper_center)"/>
     <arg name="gripper_center_xyz" default="$(arg gripper_center_xyz)"/>
+    <arg name="gripper_center_rpy" default="$(arg gripper_center_rpy)"/>
   </include>
 
   <arg name="pipeline" default="ompl" />
@@ -52,6 +56,8 @@
   <include ns="move_group" file="$(find panda_moveit_config)/launch/sensor_manager.launch.xml" if="$(eval arg('allow_trajectory_execution') and arg('moveit_perception'))">
     <arg name="moveit_sensor_manager" value="panda" />
     <arg name="moveit_perception_frame" value="$(arg moveit_perception_frame)"/>
+    <arg name="octomap_type" value="$(arg octomap_type)"/>
+    <arg name="octomap_resolution" value="$(arg octomap_resolution)"/>
   </include>
 
   <!-- Start the actual move_group node/action server -->
