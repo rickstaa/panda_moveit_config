@@ -15,9 +15,9 @@
 
   <include file="$(find panda_moveit_config)/launch/planning_context.launch">
     <arg name="load_gripper" value="$(arg load_gripper)" />
-    <arg name="gripper_center" default="$(arg gripper_center)"/>
-    <arg name="gripper_center_xyz" default="$(arg gripper_center_xyz)"/>
-    <arg name="gripper_center_rpy" default="$(arg gripper_center_rpy)"/>
+    <arg name="gripper_center" value="$(arg gripper_center)"/>
+    <arg name="gripper_center_xyz" value="$(arg gripper_center_xyz)"/>
+    <arg name="gripper_center_rpy" value="$(arg gripper_center_rpy)"/>
   </include>
 
   <arg name="pipeline" default="ompl" />
