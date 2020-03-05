@@ -6,8 +6,11 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
   <xacro:include filename="$(find panda_moveit_config)/config/panda_arm.xacro" />
   <xacro:include filename="$(find panda_moveit_config)/config/hand.xacro" />
+  <!-- Initialize grip_site properties -->
+  <xacro:arg name="grip_site" default="false" />
+  <xacro:property name="grip_site" value="$(arg grip_site)" />
   <xacro:panda_arm />
-  <xacro:hand />
+  <xacro:hand grip_site="${grip_site}" />
   <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
   <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
   <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
@@ -26,7 +29,15 @@
     <joint name="panda_finger_joint2" value="0" />
   </group_state>
   <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-  <end_effector name="hand" parent_link="panda_link8" group="hand" parent_group="panda_arm" />
+  <xacro:unless value="${grip_site}">
+    <end_effector name="hand" parent_link="panda_link8" group="hand" parent_group="panda_arm" />
+  </xacro:unless>
+  <!-- Added virtual grip site joint -->
+  <xacro:if value="${grip_site}">
+    <!-- Only when grip_site==True -->
+    <end_effector name="grip_site" parent_link="panda_grip_site" group="panda_arm" parent_group="hand" />
+    <end_effector name="grip_site" parent_link="panda_grip_site" group="panda_arm_hand" />
+  </xacro:if>
   <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
   <disable_collisions link1="panda_hand" link2="panda_link3" reason="Never" />
   <disable_collisions link1="panda_hand" link2="panda_link4" reason="Never" />

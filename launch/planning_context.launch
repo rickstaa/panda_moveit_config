@@ -1,6 +1,11 @@
 <launch>
   <arg name="load_gripper" default="true" />
 
+  <!-- Allow user to specify if they want an extra gripper center frame -->
+  <arg name="grip_site" default="false" />
+  <arg name="grip_site_xyz" default="0.0 0.0 0.10" />
+  <arg name="grip_site_rpy" default="0.0 0.0 0.0" />
+
   <!-- By default we do not overwrite the URDF. Change the following to true to change the default behavior -->
   <arg name="load_robot_description" default="false"/>
 
@@ -8,11 +13,11 @@
   <arg name="robot_description" default="robot_description"/>
 
   <!-- Load universal robot description format (URDF) -->
-  <param if="$(eval arg('load_robot_description') and arg('load_gripper'))" name="$(arg robot_description)" command="$(find xacro)/xacro '$(find franka_description)/robots/panda_arm_hand.urdf.xacro'"/>
+  <param if="$(eval arg('load_robot_description') and arg('load_gripper'))" name="$(arg robot_description)" command="$(find xacro)/xacro '$(find franka_description)/robots/panda_arm_hand.urdf.xacro' 'grip_site:=$(arg grip_site)' 'grip_site_xyz:=$(arg grip_site_xyz)' 'grip_site_rpy:=$(arg grip_site_rpy)'" />
   <param if="$(eval arg('load_robot_description') and not arg('load_gripper'))" name="$(arg robot_description)" command="$(find xacro)/xacro '$(find franka_description)/robots/panda_arm.urdf.xacro'"/>
 
   <!-- The semantic description that corresponds to the URDF -->
-  <param name="$(arg robot_description)_semantic" command="$(find xacro)/xacro '$(find panda_moveit_config)/config/panda_arm_hand.srdf.xacro'" if="$(arg load_gripper)" />
+  <param name="$(arg robot_description)_semantic" command="$(find xacro)/xacro '$(find panda_moveit_config)/config/panda_arm_hand.srdf.xacro' 'grip_site:=$(arg grip_site)'" if="$(arg load_gripper)" />
   <param name="$(arg robot_description)_semantic" command="$(find xacro)/xacro '$(find panda_moveit_config)/config/panda_arm.srdf.xacro'" unless="$(arg load_gripper)" />
 
   <!-- Load updated joint limits (override information from URDF) -->

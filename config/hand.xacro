@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
-  <xacro:macro name="hand">
+  <xacro:macro name="hand" params="grip_site:='false'">
     <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
     <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
     <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
@@ -10,6 +10,11 @@
       <link name="panda_hand" />
       <link name="panda_leftfinger" />
       <link name="panda_rightfinger" />
+      <!-- Add extra virtual grip site joint -->
+      <xacro:if value="${grip_site}">
+        <!-- Only when grip_site==True -->
+        <link name="panda_grip_site" />
+      </xacro:if>
       <joint name="panda_finger_joint1" />
       <passive_joint name="panda_finger_joint2" />
     </group>
