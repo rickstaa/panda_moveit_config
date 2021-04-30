@@ -17,7 +17,7 @@ hardware_interface:
     - panda_joint6
     - panda_joint7
     - panda_finger_joint1
-  sim_control_mode: 1  # 0: position, 1: velocity
+  sim_control_mode: 1 # 0: position, 1: velocity
 # Publish all joint states
 # Creates the /joint_states topic necessary in ROS
 joint_state_controller:
@@ -33,14 +33,6 @@ panda_arm_controller:
     - panda_joint5
     - panda_joint6
     - panda_joint7
-  gains:
-    panda_joint1: { p: 12000, d: 50, i: 0.0, i_clamp: 10000 }
-    panda_joint2: { p: 30000, d: 100, i: 0.02, i_clamp: 10000 }
-    panda_joint3: { p: 18000, d: 50, i: 0.01, i_clamp: 1 }
-    panda_joint4: { p: 18000, d: 70, i: 0.01, i_clamp: 10000 }
-    panda_joint5: { p: 12000, d: 70, i: 0.01, i_clamp: 1 }
-    panda_joint6: { p: 7000, d: 50, i: 0.01, i_clamp: 1 }
-    panda_joint7: { p: 2000, d: 20, i: 0.0, i_clamp: 1 }
 
   constraints:
     goal_time: 2.0
@@ -51,10 +43,6 @@ panda_hand_controller:
   joints:
     - panda_finger_joint1
     - panda_finger_joint2
-
-  gains:
-    panda_finger_joint1: { p: 5, d: 3.0, i: 0, i_clamp: 1 }
-    panda_finger_joint2: { p: 5, d: 1.0, i: 0, i_clamp: 1 }
 
   state_publish_rate: 25
 
@@ -78,7 +66,6 @@ controller_list:
     joints:
       - panda_finger_joint1
       - panda_finger_joint2
-
 
 gazebo_ros_control:
   pid_gains:
