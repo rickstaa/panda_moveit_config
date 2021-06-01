@@ -1,6 +1,7 @@
 <launch>
 
   <arg name="load_gripper" default="true" />
+  <arg name="spawn_controllers" default="true" />
 
   <include file="$(find panda_moveit_config)/launch/planning_context.launch">
     <arg name="load_gripper" value="$(arg load_gripper)" />
@@ -37,7 +38,9 @@
     <arg name="moveit_controller_manager" value="panda" unless="$(arg fake_execution)"/>
     <arg name="moveit_controller_manager" value="fake" if="$(arg fake_execution)"/>
   </include>
-  <include file="$(find panda_moveit_config)/launch/ros_controllers.launch"/>
+  <include file="$(find panda_moveit_config)/launch/ros_controllers.launch">
+    <arg name="spawn_controllers" value="$(arg spawn_controllers)"/>
+  </include>
 
   <!-- Sensors Functionality -->
   <include ns="move_group" file="$(find panda_moveit_config)/launch/sensor_manager.launch.xml" if="$(arg allow_trajectory_execution)">
@@ -53,20 +56,20 @@
     <param name="max_safe_path_cost" value="$(arg max_safe_path_cost)"/>
     <param name="jiggle_fraction" value="$(arg jiggle_fraction)" />
 
-    <!-- load these non-default MoveGroup capabilities -->	
-    <!--	
-    <param name="capabilities" value="	
-                  a_package/AwsomeMotionPlanningCapability	
-                  another_package/GraspPlanningPipeline	
-                  " />	
-    -->	
+    <!-- load these non-default MoveGroup capabilities -->
+    <!--
+    <param name="capabilities" value="
+                  a_package/AwsomeMotionPlanningCapability
+                  another_package/GraspPlanningPipeline
+                  " />
+    -->
 
-    <!-- inhibit these default MoveGroup capabilities -->	
-    <!--	
-    <param name="disable_capabilities" value="	
-                  move_group/MoveGroupKinematicsService	
-                  move_group/ClearOctomapService	
-                  " />	
+    <!-- inhibit these default MoveGroup capabilities -->
+    <!--
+    <param name="disable_capabilities" value="
+                  move_group/MoveGroupKinematicsService
+                  move_group/ClearOctomapService
+                  " />
     -->
 
 

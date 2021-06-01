@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="spawn_controllers" default="true"/>
 
   <!-- Load joint controller configurations from YAML file to parameter server -->
   <rosparam file="$(find panda_moveit_config)/config/ros_controllers.yaml" command="load"/>
 
   <!-- Load the controllers -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+  <node if="$(arg spawn_controllers)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
     output="screen" args="joint_state_controller panda_hand_controller panda_arm_controller"/>
 
 </launch>
